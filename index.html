@@ -51,8 +51,8 @@
     </div>
   </div>
 
-  <script type="module">
-    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
     const yesButton = document.getElementById('yesButton');
     const noButton = document.getElementById('noButton');
     const imageDisplay = document.getElementById('imageDisplay');
@@ -74,22 +74,27 @@
     ];
   
     noButton.addEventListener('click', function() {
-      if (noClickCount < 5) {
+      console.log('Przycisk NIE kliknięty! Licznik:', noClickCount);
+      if (noClickCount < 6) {
         noClickCount++;
+        console.log('Zmieniam obrazek na:', imagePaths[noClickCount]);
         imageDisplay.src = imagePaths[noClickCount];
-        buttonHeight += 35; // Increase height by 5px on each click
-        buttonWidth += 35;
-        fontSize += 25; // Increase font size by 1px on each click
+        buttonHeight += 35; // Increase height by 35px on each click
+        buttonWidth += 35; // Increase width by 35px on each click
+        fontSize += 25; // Increase font size by 25px on each click
         yesButton.style.height = `${buttonHeight}px`; // Update button height
         yesButton.style.width = `${buttonWidth}px`;
         yesButton.style.fontSize = `${fontSize}px`; // Update font size
         if (noClickCount < 6) {
           noButton.textContent = ["Nie", "Jesteś pewna?", "Kasieńko proszę", "Nie rób mi tego :(", "U are breaking piplup heart", "Kateuruuuuu błagam"][noClickCount];
         }
+      } else {
+        console.log('Maksymalna liczba kliknięć osiągnięta');
       }
     });
   
     yesButton.addEventListener('click', () => {
+      console.log('Przycisk TAK kliknięty!');
       imageDisplay.src = './images/image7.gif'; // Change to image7.gif
       valentineQuestion.textContent = "Huraa!!! ta domena jest dla Pani :3 kocham Cię i będę zawsze Panią wspierać"; // Change the question text
       valentineQuestion.className = "text-4xl font-bold italic text-[#bd1e59] my-4 success-message"; // Add centering class
