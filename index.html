@@ -31,9 +31,29 @@
       max-width: 80%;
       margin: 0 auto;
     }
+
+    /* Efekt śniegu */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      z-index: 9999;
+      color: #fff;
+      font-size: 1em;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
   </style>
 </head>
 <body class="gradient-background">
+  <!-- Śnieg -->
+  <div id="snow-container"></div>
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col items-center p-4">
       <img id="imageDisplay" src="./images/image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
@@ -101,6 +121,25 @@
       responseButtons.style.display = 'none'; // Hide both buttons
       confetti(); // Trigger confetti animation
     });
+
+    // Generowanie śniegu ❄️
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.className = 'snowflake';
+      snowflake.innerHTML = '❄';
+      snowflake.style.left = Math.random() * 100 + '%';
+      snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
+      snowflake.style.fontSize = Math.random() * 1 + 0.5 + 'em';
+      document.getElementById('snow-container').appendChild(snowflake);
+      
+      setTimeout(() => {
+        snowflake.remove();
+      }, 8000);
+    }
+
+    // Twórz płatki śniegu co 300ms
+    setInterval(createSnowflake, 300);
+    console.log('❄️ Śnieg został aktywowany!');
   </script>  
 </body>
 </html>
